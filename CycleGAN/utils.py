@@ -1,6 +1,7 @@
 import pickle
 import numpy as np
 from PIL import Image
+import os
 
 
 def preprocess(img_batch):
@@ -26,24 +27,25 @@ def make_CycleGAN_data(num_per_class):
         testset = pickle.load(f, encoding='bytes')
     images = testset['x_train']
     labels = testset['y_train']
-    
+
     # Sample 10% images
     count = []
+    num_per_classes = 500
     for i in range(10):
         count.append(num_per_classes)
-    image = []    
+    image = []
     for i in range(images.shape[0]):
         img = images[i]
         lbl = labels[i][0]
         if count[lbl] > 0:
             image.append(img)
-            count[lbl] -= 1 
-    
+            count[lbl] -= 1
+
     cifar = np.asarray(image).astype('uint8')
     print(cifar.shape)
     with open('../dataset/cifar', 'wb') as f:
         pickle.dump(cifar, f)
-    
+
     filepath = './sunrise/'
     files = os.listdir(filepath)
     sunrise = []
@@ -65,7 +67,7 @@ class DataLoader:
         # Make your data for training CycleGAN
         if not (os.path.exists('../dataset/cifar') and os.path.exists('../dataset/sunrise')):
             make_CycleGAN_data(num_per_class=500)
-        
+
         with open('../dataset/cifar', 'rb') as f1:
             self.path_A = pickle.load(f1, encoding='bytes')
         with open('../dataset/sunrise', 'rb') as f2:
