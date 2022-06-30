@@ -5,7 +5,7 @@ See https://arxiv.org/abs/2012.11212.<br>
 
 ## Dependences
 
-Python3.6, tensorflow=1.13.1, keras=2.2.4, numpy, pickle, PIL.<br>
+Python3.6, tensorflow=1.13.1, keras=2.2.5, numpy, pickle, PIL.<br>
 
 ## How to use this repository
 
